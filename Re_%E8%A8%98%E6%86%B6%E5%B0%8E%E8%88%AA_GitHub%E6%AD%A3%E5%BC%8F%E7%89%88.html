@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Re:Mind｜記憶導航</title>
+<style>
+:root{--bg:#11111b;--panel:#1b1b2a;--panel2:#24243a;--line:#34344c;--text:#f4f3fb;--muted:#aaa9c1;--lime:#c4ff5e;--purple:#a78bfa;--red:#ff7e8a;--yellow:#ffd166;--green:#70e1b2;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#292044 0%,transparent 38%),var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;line-height:1.5}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:10px 14px;background:var(--lime);color:#171721;font-weight:750;transition:.15s}button:hover{filter:brightness(1.06);transform:translateY(-1px)}button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}button.danger{background:#48252f;color:#ffc5cb;border:1px solid #74404b}button.small{font-size:.84rem;padding:7px 10px}.app{max-width:1400px;margin:auto;padding:26px 22px 50px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:14px;background:var(--lime);color:#171721;display:grid;place-items:center;font-weight:1000;font-size:1.2rem;box-shadow:0 0 32px #c4ff5e20}.brand h1{font-size:1.15rem;margin:0;letter-spacing:.04em}.brand p{margin:1px 0 0;color:var(--muted);font-size:.8rem;letter-spacing:.12em}.date-label{color:var(--muted);font-size:.9rem;text-align:right}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:22px}.eyebrow{font-size:.75rem;letter-spacing:.17em;text-transform:uppercase;color:var(--lime);font-weight:800}.hero h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;margin:8px 0}.hero p{color:var(--muted);margin:8px 0 0}.hero-tag{border:1px solid #48415f;color:#d6ccff;background:#211e34;border-radius:999px;padding:8px 13px;font-size:.82rem;white-space:nowrap}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:22px}.stat,.panel{background:linear-gradient(145deg,#202033,#191927);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0}.stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:.84rem}.stat-icon{width:32px;height:32px;border-radius:10px;background:#34304d;display:grid;place-items:center;color:var(--lime)}.stat strong{display:block;font-size:1.9rem;letter-spacing:-.04em;margin-top:13px}.stat small{color:var(--muted);font-size:.8rem}.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.85fr);gap:18px;align-items:start}.stack{display:grid;gap:18px}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}.panel-head h3{margin:0;font-size:1.05rem}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:.84rem}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:.74rem;font-weight:750;background:#34304d;color:#d9d0ff;white-space:nowrap}.pill.due{background:#4a3c22;color:#ffdc8c}.pill.overdue{background:#48252f;color:#ffadb6}.pill.done{background:#203c33;color:#9df0cb}.pill.fresh{background:#292d40;color:#b9c6ff}.review-list,.subject-list,.history-list{display:grid;gap:10px}.review-item,.subject-item,.history-item{display:flex;gap:12px;align-items:center;padding:13px;background:#202033;border:1px solid #303047;border-radius:14px}.review-main{min-width:0;flex:1}.review-main strong{display:block;overflow-wrap:anywhere}.review-main small{color:var(--muted)}.item-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.empty{padding:24px 12px;text-align:center;color:var(--muted);border:1px dashed #41415b;border-radius:14px}.empty b{display:block;color:var(--text);margin-bottom:5px}.field{display:grid;gap:6px}.field label{font-size:.82rem;color:var(--muted)}input,select{width:100%;background:#131320;border:1px solid #41415b;border-radius:11px;padding:10px 11px;color:var(--text);outline:none}input:focus,select:focus{border-color:var(--lime);box-shadow:0 0 0 3px #c4ff5e18}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-grid .wide{grid-column:1/-1}.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}.subject-item{align-items:flex-start}.subject-symbol{width:38px;height:38px;border-radius:12px;background:#34304d;color:var(--lime);display:grid;place-items:center;font-weight:900;flex-shrink:0}.subject-info{flex:1;min-width:0}.subject-info strong{display:block;overflow-wrap:anywhere}.subject-info small{color:var(--muted)}.subject-info .sub-actions{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}.subject-toggle{display:flex;align-items:center;gap:8px;background:transparent;color:var(--text);padding:0;text-align:left;width:100%;font-weight:750}.subject-toggle:hover{transform:none;filter:none;color:var(--lime)}.subject-toggle .chevron{color:var(--lime);font-size:.85rem;flex-shrink:0}.unit-sublist{display:grid;gap:7px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.unit-subrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 11px;background:#171725;border:1px solid #303047;border-radius:11px}.unit-subrow strong{font-size:.9rem;overflow-wrap:anywhere}.unit-subrow small{color:var(--muted);font-size:.78rem;white-space:nowrap}.unit-subrow-info{display:grid;gap:3px;min-width:0;flex:1}.unit-subrow-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}.meter{height:7px;border-radius:99px;background:#37364c;overflow:hidden;margin-top:10px}.meter span{display:block;height:100%;background:var(--lime);border-radius:99px}.chart{height:145px;display:flex;align-items:end;gap:10px;padding:8px 4px 0}.bar-col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:7px;height:100%;justify-content:flex-end}.bar{width:min(100%,28px);min-height:3px;background:linear-gradient(180deg,var(--lime),#7bce73);border-radius:7px 7px 3px 3px}.bar-col small{color:var(--muted);font-size:.72rem}.bar-col em{font-style:normal;font-size:.7rem;color:#deddf0}.history-item{align-items:flex-start}.history-dot{width:9px;height:9px;background:var(--purple);border-radius:50%;margin-top:7px;flex-shrink:0}.history-item div{min-width:0;flex:1}.history-item strong{display:block;overflow-wrap:anywhere}.history-item small{color:var(--muted)}.notice{font-size:.82rem;color:var(--muted);padding:12px 14px;border-radius:12px;background:#1b1a2a;border:1px solid #39324e}.footer{margin-top:22px;text-align:center;color:#77768e;font-size:.78rem}.modal-backdrop{position:fixed;inset:0;background:#080811c9;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modal-backdrop.show{display:flex}.modal{width:min(540px,100%);max-height:90vh;overflow:auto;background:#1b1b2a;border:1px solid #48415f;border-radius:20px;padding:22px;box-shadow:0 24px 90px #0008}.modal h3{margin:0 0 5px}.modal p{color:var(--muted);font-size:.9rem;margin:0 0 18px}.review-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:15px 0}.review-choice{background:#28263b;border:1px solid #47435f;color:var(--text);padding:12px 8px;border-radius:13px}.review-choice span{display:block;font-size:.78rem;color:var(--muted);font-weight:500;margin-top:4px}.review-choice.selected{border-color:var(--lime);box-shadow:0 0 0 2px #c4ff5e18}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--lime);color:#15151f;border-radius:12px;padding:12px 17px;font-weight:800;z-index:20;transition:.25s;box-shadow:0 10px 40px #0006}.toast.show{opacity:1;transform:translate(-50%,0)}.toolbar{display:flex;gap:8px;flex-wrap:wrap}subject-select{max-width:220px}
+.subject-group-card{display:block;padding:14px;background:#202033;border:1px solid #35354e;border-radius:14px}
+.group-head{display:flex;align-items:center;gap:11px;width:100%;background:transparent;color:var(--text);padding:0;text-align:left}
+.group-head:hover{transform:none;filter:none}
+.group-head .subject-symbol{width:40px;height:40px}
+.group-title{flex:1;min-width:0}
+.group-title strong{display:block;font-size:1rem;overflow-wrap:anywhere}
+.group-title small{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}
+.group-count{color:var(--lime);font-size:.8rem;white-space:nowrap}
+.group-details{display:grid;gap:9px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line)}
+.group-unit{padding:12px;background:#171725;border:1px solid #303047;border-radius:12px;min-width:0}
+.group-unit-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.group-unit-top strong{overflow-wrap:anywhere}
+.group-unit-meta{color:var(--muted);font-size:.8rem;margin-top:4px}
+.activity-event{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-top:1px solid #303047}
+.activity-event:first-child{border-top:0}
+.activity-mark{width:8px;height:8px;background:var(--purple);border-radius:50%;margin-top:6px;flex-shrink:0}
+.activity-event small{color:var(--muted);display:block}
+.completion-banner{padding:12px;border:1px solid #4b7140;background:#202f25;border-radius:11px;color:#caffae;font-size:.84rem}
+.hidden{display:none!important}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.hero-tag{white-space:normal}.date-label{display:none}}
+@media(max-width:560px){.app{padding:18px 13px 34px}.topbar{margin-bottom:22px}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:1.55rem}.panel{padding:14px}.form-grid{grid-template-columns:1fr}.form-grid .wide{grid-column:auto}.review-item{align-items:flex-start;flex-wrap:wrap}.item-actions{width:100%;justify-content:flex-start;padding-left:31px}.review-options{grid-template-columns:1fr}.review-choice{text-align:left}.hero h2{font-size:2rem}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="logo">R:</div><div><h1>RE:MIND</h1><p>YOUR MEMORY NAVIGATOR</p></div></div>
+    <div class="date-label" id="headerDate"></div>
+  </header>
+  <section class="hero">
+    <div><div class="eyebrow">SPACED REPETITION / PERSONAL LEARNING</div><h2>讓複習，剛剛好。<span style="color:var(--lime)">↗</span></h2><p>不是讀過就算了，而是在適合的時間，再次記住。</p></div>
+    <div class="hero-tag">✦ 你的學習節奏，由你掌握</div>
+  </section>
+  <section class="stats">
+    <div class="stat"><div class="stat-top"><span>今日待複習</span><span class="stat-icon">◎</span></div><strong id="statDue">0</strong><small>包含已逾期與今日到期</small></div>
+    <div class="stat"><div class="stat-top"><span>今日已完成</span><span class="stat-icon">✓</span></div><strong id="statDone">0</strong><small>今天完成的複習單元</small></div>
+    <div class="stat"><div class="stat-top"><span>目前管理單元</span><span class="stat-icon">▤</span></div><strong id="statUnits">0</strong><small>已建立的學習單元</small></div>
+    <div class="stat"><div class="stat-top"><span>累積複習次數</span><span class="stat-icon">↻</span></div><strong id="statReviews">0</strong><small>所有單元的複習紀錄</small></div>
+  </section>
+  <main class="layout">
+    <div class="stack">
+      <section class="panel">
+        <div class="panel-head"><div><h3>今日複習清單 <span style="color:var(--lime)">/</span></h3><p>優先處理逾期與今天到期的內容。</p></div><span class="pill" id="todayCount">0 項</span></div>
+        <div class="toolbar" style="margin-bottom:14px"><select id="reviewFilter" class="subject-select" aria-label="篩選科目"><option value="all">所有科目</option></select><select id="statusFilter" class="subject-select" aria-label="篩選狀態"><option value="due">待複習</option><option value="all">全部單元</option><option value="fresh">尚未開始</option></select></div>
+        <div id="reviewList" class="review-list"></div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><h3>科目與學習單元</h3><p>先建立科目，再把需要記住的內容拆成單元。</p></div><button id="addSubjectOpen" class="small">＋ 新增科目</button></div>
+        <form id="unitForm">
+          <div class="form-grid">
+            <div class="field wide"><label for="unitName">學習單元名稱</label><input id="unitName" required maxlength="100" placeholder="例如：抽樣分配、英文單字 Unit 3"></div>
+            <div class="field"><label for="unitSubject">所屬科目</label><select id="unitSubject" required></select></div>
+            <div class="field"><label for="unitStatus">學習狀態</label><select id="unitStatus"><option value="started">已學習，開始安排複習</option><option value="new">尚未學習</option></select></div>
+          </div>
+          <div class="form-actions"><button type="submit">＋ 建立學習單元</button></div>
+        </form>
+        <div style="height:1px;background:var(--line);margin:18px 0"></div>
+        <div id="subjectList" class="subject-list"></div>
+      </section>
+    </div>
+    <aside class="stack">
+      <section class="panel">
+        <div class="panel-head"><div><h3>近 7 天複習紀錄</h3><p>每天完成了多少次複習？</p></div><span class="pill">LAST 7 DAYS</span></div>
+        <div class="chart" id="weekChart"></div>
+        <div class="notice" style="margin-top:15px">這裡統計的是實際完成的複習紀錄，不是預估的記憶強度。</div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><h3>最近 14 天活動</h3><p>依科目查看每個單元的複習時間、記憶狀態與兩週完結進度。</p></div></div>
+        <div id="historyList" class="history-list"></div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><h3>排程規則</h3><p>透明、可理解的第一版演算法。</p></div></div>
+        <div class="notice">複習間隔：依記憶狀態延後 1 → 3 → 7 天；開始排程滿 14 天即自動完結，不需要當天再複習。<br><br>忘記了：隔天重試；有點吃力：維持目前階段；記得很熟：前進一階（最多到第 3 階段）。第 14 天會自動標記完成並跳出恭喜通知，可選擇保留單元與紀錄，或刪除單元及其相關紀錄。這是簡化的間隔複習規則，不是精準預測個人記憶的模型。</div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><h3>資料管理</h3><p>資料只儲存在目前瀏覽器。</p></div></div>
+        <div class="toolbar"><button class="secondary small" id="exportBtn">匯出備份 JSON</button><button class="danger small" id="clearBtn">清除全部資料</button></div>
+        <input id="importFile" class="hidden" type="file" accept="application/json">
+        <button class="secondary small" id="importBtn" style="margin-top:9px">匯入備份 JSON</button>
+      </section>
+    </aside>
+  </main>
+  <div class="footer">RE:MIND · 間隔複習工具 · 資料保存在你的瀏覽器中</div>
+</div>
+
+<div class="modal-backdrop" id="subjectBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle">
+    <h3 id="subjectModalTitle">新增科目</h3>
+    <p>建立一個科目，再把需要複習的內容加入其中。</p>
+    <form id="subjectForm">
+      <div class="field">
+        <label for="subjectNameInput">科目名稱</label>
+        <input id="subjectNameInput" maxlength="60" required placeholder="例如：統計學、英文、熱力學">
+      </div>
+      <div class="form-actions">
+        <button type="button" class="secondary" id="cancelSubject">取消</button>
+        <button type="submit">建立科目</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-backdrop" id="editBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+    <h3 id="editModalTitle">編輯名稱</h3>
+    <p id="editModalSubtitle">修改名稱後儲存即可。</p>
+    <form id="editForm">
+      <div class="field"><label for="editNameInput">名稱</label><input id="editNameInput" maxlength="100" required></div>
+      <div class="form-actions"><button type="button" class="secondary" id="cancelEdit">取消</button><button type="submit">儲存變更</button></div>
+    </form>
+  </div>
+</div>
+<div class="modal-backdrop" id="confirmBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <h3 id="confirmTitle">請確認操作</h3>
+    <p id="confirmMessage">確定要執行這項操作嗎？</p>
+    <div class="form-actions"><button type="button" class="secondary" id="cancelConfirm">取消</button><button type="button" class="danger" id="acceptConfirm">確定刪除</button></div>
+  </div>
+</div>
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">完成複習</h3><p id="modalSubtitle">回想一下：這個單元現在掌握得如何？</p>
+    <div class="review-options">
+      <button class="review-choice" data-rating="forgot">忘記了<span>隔天再試一次</span></button>
+      <button class="review-choice" data-rating="hard">有點吃力<span>回到原階段間隔</span></button>
+      <button class="review-choice" data-rating="easy">記得很熟<span>進入下一階段</span></button>
+    </div>
+    <p style="font-size:.82rem;margin:0;color:var(--muted)">選擇記憶狀態後，按「儲存複習結果」才會更新下次複習日期。</p>
+    <div class="form-actions"><button class="secondary" id="cancelReview">取消</button><button id="submitReview" disabled>儲存複習結果</button></div>
+  </div>
+</div>
+<div class="modal-backdrop" id="completionBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="completionTitle">
+    <h3 id="completionTitle">🎉 恭喜完成兩週複習！</h3>
+    <p id="completionMessage">這個單元已完成兩週複習。你想保留或刪除單元？</p>
+    <div class="form-actions"><button type="button" class="secondary" id="keepCompletedUnit">保留單元與紀錄</button><button type="button" class="danger" id="deleteCompletedUnit">刪除單元</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const KEY = 'remind_app_v1';
+  const intervals = [1,3,7];
+  const $ = id => document.getElementById(id);
+  const realTodayISO = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  };
+  // 正式版一律使用裝置的實際本地日期。
+  const todayISO = () => realTodayISO();
+  const addDays = (iso, days) => {
+    const [y,m,d] = iso.split('-').map(Number);
+    const date = new Date(y,m-1,d);
+    date.setDate(date.getDate()+days);
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  };
+  const dateLabel = iso => {
+    if(!iso) return '尚未安排';
+    const [y,m,d] = iso.split('-').map(Number);
+    return `${m}/${d}`;
+  };
+  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+  let state = load();
+  let activeReviewId = null;
+  let selectedRating = null;
+  const expandedSubjects = new Set();
+  const completionQueue = [];
+  let activeCompletionId = null;
+  function load(){
+    try{
+      const raw = localStorage.getItem(KEY);
+      if(raw){
+        const parsed = JSON.parse(raw);
+        if(parsed && Array.isArray(parsed.subjects) && Array.isArray(parsed.units) && Array.isArray(parsed.history)) {
+          parsed.units.forEach(u => { if (typeof u.forgotRetry !== 'boolean') u.forgotRetry = false; });
+          try { localStorage.setItem(KEY, JSON.stringify(parsed)); } catch(e) {}
+          return parsed;
+        }
+      }
+    }catch(e){}
+    return {subjects:[],units:[],history:[]};
+  }
+  function save(){ try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){toast('儲存失敗，請檢查瀏覽器儲存空間。');} }
+  function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function subjectName(id){return state.subjects.find(s=>s.id===id)?.name || '未分類科目';}
+  function isDue(u){return u.status==='active' && !u.completed && u.nextDate && u.nextDate<=todayISO();}
+  function isOverdue(u){return isDue(u) && u.nextDate<todayISO();}
+  function dueUnits(){return state.units.filter(isDue);}
+  function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2500);}
+  function render(){
+    const today=todayISO();
+    completeUnitsDueForCompletion(today);
+    const [yy,mm,dd]=today.split('-').map(Number);
+    const displayDate=new Date(yy,mm-1,dd,12,0,0);
+    $('headerDate').textContent = new Intl.DateTimeFormat('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'}).format(displayDate);
+    $('statDue').textContent=dueUnits().length;
+    $('statDone').textContent=state.history.filter(h=>h.date===today).length;
+    $('statUnits').textContent=state.units.length;
+    $('statReviews').textContent=state.history.length;
+    $('todayCount').textContent=`${dueUnits().length} 項待複習`;
+    renderSelects(); renderReviews(); renderSubjects(); renderChart(); renderHistory();
+    showNextCompletionNotice();
+  }
+  function completeUnitsDueForCompletion(today){
+    let changed=false;
+    state.units.forEach(u=>{
+      const start=u.startDate||((u.status==='active')?u.createdAt:null);
+      if(!u.completed && u.status==='active' && start && today>=addDays(start,14)){
+        u.completed=true;
+        u.completedDate=addDays(start,14);
+        u.nextDate=null;
+        completionQueue.push(u.id);
+        changed=true;
+      }
+    });
+    if(changed) save();
+  }
+  function showNextCompletionNotice(){
+    if(activeCompletionId || !completionQueue.length) return;
+    while(completionQueue.length){
+      const id=completionQueue.shift();
+      const u=state.units.find(x=>x.id===id);
+      if(!u || !u.completed) continue;
+      activeCompletionId=id;
+      $('completionTitle').textContent='🎉 恭喜完成兩週複習！';
+      $('completionMessage').textContent=`「${u.name}」已於 ${dateLabel(u.completedDate)} 達成兩週完結！你可以保留單元與所有複習紀錄，或刪除單元及相關紀錄。`;
+      $('completionBackdrop').classList.add('show');
+      return;
+    }
+  }
+  function closeCompletionNotice(){
+    $('completionBackdrop').classList.remove('show');
+    activeCompletionId=null;
+    showNextCompletionNotice();
+  }
+  function keepCompletedUnit(){
+    const id=activeCompletionId;
+    $('completionBackdrop').classList.remove('show');
+    activeCompletionId=null;
+    toast('已保留完成單元與複習紀錄。');
+    showNextCompletionNotice();
+  }
+  function requestDeleteCompletedUnit(){
+    const id=activeCompletionId;
+    const u=state.units.find(x=>x.id===id);
+    $('completionBackdrop').classList.remove('show');
+    activeCompletionId=null;
+    if(!u){showNextCompletionNotice();return;}
+    askConfirm(`確定刪除已完成的單元「${u.name}」？它的所有複習紀錄也會一併刪除。`,()=>{
+      state.units=state.units.filter(x=>x.id!==id);
+      state.history=state.history.filter(h=>h.unitId!==id);
+      save();render();toast('已刪除完成單元及相關紀錄。');
+    },'刪除已完成單元');
+  }
+  function renderSelects(){
+    const review=$('reviewFilter'), unit=$('unitSubject');
+    const prev=review.value;
+    review.innerHTML='<option value="all">所有科目</option>'+state.subjects.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');
+    if([...review.options].some(o=>o.value===prev)) review.value=prev;
+    const prevUnit=unit.value;
+    unit.innerHTML=state.subjects.length?state.subjects.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join(''):'<option value="">請先新增科目</option>';
+    if([...unit.options].some(o=>o.value===prevUnit)) unit.value=prevUnit;
+    $('unitForm').querySelector('button[type=submit]').disabled=!state.subjects.length;
+  }
+  function renderReviews(){
+    const filter=$('statusFilter').value, sub=$('reviewFilter').value;
+    let units=state.units.filter(u=>(sub==='all'||u.subjectId===sub));
+    if(filter==='due') units=units.filter(u=>isDue(u));
+    else if(filter==='fresh') units=units.filter(u=>u.status==='new');
+    units.sort((a,b)=>{
+      const rank=u=>u.completed?4:u.status==='new'?3:(isOverdue(u)?0:(isDue(u)?1:2));
+      return rank(a)-rank(b)||(a.nextDate||'9999').localeCompare(b.nextDate||'9999')||a.name.localeCompare(b.name,'zh-TW');
+    });
+    const list=$('reviewList');
+    if(!units.length){
+      const msg=filter==='due'?'太好了，目前沒有到期的複習。':'試著新增一個科目，再建立你的第一個學習單元。';
+      list.innerHTML=`<div class="empty"><b>${filter==='due'?'目前沒有待複習項目':'這裡還沒有學習單元'}</b>${msg}</div>`;return;
+    }
+    const subjectIds=[...new Set(units.map(u=>u.subjectId))];
+    list.innerHTML=subjectIds.map(sid=>{
+      const sUnits=units.filter(u=>u.subjectId===sid);
+      const expanded=expandedSubjects.has('review:'+sid);
+      const dueCount=sUnits.filter(isDue).length;
+      const unitRows=sUnits.map(u=>{
+        const due=isDue(u), overdue=isOverdue(u), fresh=u.status==='new';
+        const pill=u.completed?'<span class="pill done">兩週完結</span>':fresh?'<span class="pill fresh">尚未開始</span>':overdue?'<span class="pill overdue">已逾期</span>':due?'<span class="pill due">今日到期</span>':`<span class="pill">下次 ${dateLabel(u.nextDate)}</span>`;
+        const action=u.completed?'<span class="pill done">已完成</span>':fresh?`<button class="small" data-action="start" data-id="${u.id}">開始排程</button>`:due?`<button class="small" data-action="review" data-id="${u.id}">完成複習</button>`:`<button class="secondary small" data-action="review" data-id="${u.id}">提前複習</button>`;
+        return `<div class="group-unit"><div class="group-unit-top"><div style="min-width:0;flex:1"><strong>${esc(u.name)}</strong><div class="group-unit-meta">第 ${u.stage+1} 階段 · 已複習 ${u.reviewCount||0} 次 · 應複習：${dateLabel(u.nextDate)}</div><div style="margin-top:7px">${pill}</div></div><div class="unit-subrow-actions">${action}<button class="secondary small" data-action="edit" data-id="${u.id}">編輯</button></div></div></div>`;
+      }).join('');
+      return `<div class="subject-group-card"><button class="group-head" data-action="toggle-review-subject" data-id="${sid}" aria-expanded="${expanded}"><span class="subject-symbol">${esc(subjectName(sid).trim().slice(0,1)||'學')}</span><span class="group-title"><strong>${esc(subjectName(sid))}</strong><small>${sUnits.length} 個單元 · ${dueCount} 個待複習</small></span><span class="group-count">${expanded?'收合 ▴':'查看單元 ▾'}</span></button>${expanded?`<div class="group-details">${unitRows}</div>`:''}</div>`;
+    }).join('');
+  }
+  function renderSubjects(){
+    const el=$('subjectList');
+    if(!state.subjects.length){el.innerHTML='<div class="empty"><b>先建立你的第一個科目</b>例如：英文、統計學、熱力學。</div>';return;}
+    el.innerHTML=state.subjects.map(s=>{
+      const units=state.units.filter(u=>u.subjectId===s.id), due=units.filter(isDue).length, active=units.filter(u=>u.status==='active').length;
+      const percent=active?Math.round(units.filter(u=>u.status==='active'&&!isDue(u)).length/active*100):0;
+      const expanded=expandedSubjects.has(s.id);
+      const unitRows=units.length?units.map(u=>`<div class="unit-subrow"><div class="unit-subrow-info"><strong>${esc(u.name)}</strong><small>${u.status==='new'?'尚未學習':`第 ${u.stage+1} 階段${isDue(u)?' · 待複習':' · 未到期'}`}</small></div><div class="unit-subrow-actions"><button class="danger small" data-action="delete-unit" data-id="${u.id}">刪除</button></div></div>`).join(''):'<div class="empty" style="padding:14px">這個科目還沒有學習單元，點「新增單元」開始建立。</div>';
+      return `<div class="subject-item"><div class="subject-symbol">${esc(s.name.trim().slice(0,1)||'學')}</div><div class="subject-info"><button class="subject-toggle" data-action="toggle-subject" data-id="${s.id}" aria-expanded="${expanded}"><span class="chevron">${expanded?'▼':'▶'}</span><span>${esc(s.name)}</span></button><small>${units.length} 個單元 · ${due} 個待複習</small><div class="meter"><span style="width:${percent}%"></span></div>${expanded?`<div class="unit-sublist">${unitRows}</div>`:''}<div class="sub-actions"><button class="secondary small" data-action="add-unit" data-id="${s.id}">＋ 新增單元</button><button class="secondary small" data-action="rename-subject" data-id="${s.id}">重新命名</button><button class="danger small" data-action="delete-subject" data-id="${s.id}">刪除科目</button></div></div></div>`;
+    }).join('');
+  }
+  function renderChart(){
+    const today=todayISO(), dates=[];
+    for(let i=6;i>=0;i--) dates.push(addDays(today,-i));
+    const counts=dates.map(d=>state.history.filter(h=>h.date===d).length), max=Math.max(1,...counts);
+    $('weekChart').innerHTML=dates.map((d,i)=>`<div class="bar-col"><em>${counts[i]||''}</em><div class="bar" style="height:${Math.max(3,counts[i]/max*82)}px;opacity:${counts[i]?1:.3}"></div><small>${dateLabel(d)}</small></div>`).join('');
+  }
+  function renderHistory(){
+    const today=todayISO(), endDate=addDays(today,14), startDate=addDays(today,-13);
+    const recent=[...state.history].filter(h=>h.date>=startDate&&h.date<=today)
+      .sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.completedAt||'').localeCompare(a.completedAt||''));
+    const subjectIds=[...new Set([
+      ...recent.map(h=>h.subjectId),
+      ...state.units.map(u=>u.subjectId)
+    ])];
+    if(!subjectIds.length){$('historyList').innerHTML='<div class="empty">最近 14 天還沒有複習活動或排程。</div>';return;}
+    $('historyList').innerHTML=subjectIds.map(sid=>{
+      const units=state.units.filter(u=>u.subjectId===sid);
+      const eventsForSubject=recent.filter(h=>h.subjectId===sid);
+      const expanded=expandedSubjects.has('activity:'+sid);
+      const dueSoon=units.filter(u=>u.nextDate&&u.nextDate>=today&&u.nextDate<=endDate&&!u.completed).length;
+      const unitCards=units.map(u=>{
+        const events=recent.filter(h=>h.unitId===u.id).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+        const upcoming=u.nextDate&&u.nextDate>=today&&u.nextDate<=endDate&&!u.completed;
+        const completion=u.completedDate?`<div class="completion-banner">🎉 已於 ${dateLabel(u.completedDate)} 完成兩週複習！</div>`:'';
+        const eventRows=events.map(h=>`<div class="activity-event"><span class="activity-mark"></span><div><strong>${dateLabel(h.date)} · ${{forgot:'忘記了',hard:'有點吃力',easy:'記得很熟'}[h.rating]||h.rating}</strong><small>複習後：第 ${(h.stageAfter??0)+1} 階段 · 下次複習 ${dateLabel(h.nextDate)}</small></div></div>`).join('');
+        const planned=upcoming?`<div class="activity-event"><span class="activity-mark" style="background:var(--lime)"></span><div><strong>${dateLabel(u.nextDate)} · 預定複習</strong><small>目前階段：第 ${(u.stage||0)+1} 階段 · 尚未完成</small></div></div>`:'';
+        const noEvents=!events.length&&!upcoming&&!completion;
+        return `<div class="group-unit"><div class="group-unit-top"><div style="min-width:0;flex:1"><strong>${esc(u.name)}</strong><div class="group-unit-meta">${u.status==='new'?'尚未開始排程':u.completed?'兩週已完結':`第 ${(u.stage||0)+1} 階段 · 下次 ${dateLabel(u.nextDate)}`}</div></div><span class="pill ${u.completed?'done':upcoming?'due':'fresh'}">${u.completed?'已完結':upcoming?'14 天內到期':'單元紀錄'}</span></div>${completion}${eventRows}${planned}${noEvents?'<div class="group-unit-meta">這個單元在此期間沒有複習紀錄。</div>':''}</div>`;
+      }).join('');
+      return `<div class="subject-group-card"><button class="group-head" data-action="toggle-activity-subject" data-id="${sid}" aria-expanded="${expanded}"><span class="subject-symbol">${esc(subjectName(sid).trim().slice(0,1)||'學')}</span><span class="group-title"><strong>${esc(subjectName(sid))}</strong><small>${units.length} 個單元 · 近兩週 ${eventsForSubject.length} 次複習 · 未來 14 天 ${dueSoon} 項排程</small></span><span class="group-count">${expanded?'收合 ▴':'查看活動 ▾'}</span></button>${expanded?`<div class="group-details">${unitCards||'<div class="empty">這個科目還沒有學習單元。</div>'}</div>`:''}</div>`;
+    }).join('');
+  }
+  function openSubjectModal(){
+    $('subjectNameInput').value='';
+    $('subjectBackdrop').classList.add('show');
+    setTimeout(()=>$('subjectNameInput').focus(), 50);
+  }
+  function closeSubjectModal(){
+    $('subjectBackdrop').classList.remove('show');
+  }
+  function addSubject(name){
+    const clean=String(name||'').trim();
+    if(!clean){toast('科目名稱不能空白。');return false;}
+    if(state.subjects.some(s=>s.name.toLowerCase()===clean.toLowerCase())){toast('這個科目已經存在。');return false;}
+    state.subjects.push({id:uid(),name:clean,createdAt:todayISO()});
+    save();render();toast('科目已建立。');
+    return true;
+  }
+  function addUnit(name,subjectId,status){
+    const u={id:uid(),name,subjectId,status:status==='new'?'new':'active',stage:status==='new'?0:0,reviewCount:0,lastDate:null,nextDate:status==='new'?null:addDays(todayISO(),1),lastRating:null,forgotRetry:false,startDate:status==='new'?null:todayISO(),completed:false,completedDate:null,createdAt:todayISO()};
+    state.units.push(u);save();render();toast(status==='new'?'學習單元已建立，完成首次學習後再開始排程。':'已建立，第一次複習安排在明天。');
+  }
+  function startSchedule(id){
+    const u=state.units.find(x=>x.id===id);if(!u)return;
+    if(u.status!=='new')return;
+    u.status='active';u.stage=0;u.forgotRetry=false;u.startDate=todayISO();u.completed=false;u.completedDate=null;u.nextDate=addDays(todayISO(),1);u.lastDate=todayISO();save();render();toast('已開始排程，第一次複習安排在明天。');
+  }
+  function openReview(id){
+    const u=state.units.find(x=>x.id===id);if(!u)return;
+    activeReviewId=id;selectedRating=null;
+    $('modalTitle').textContent='完成複習';
+    $('modalSubtitle').textContent=`${subjectName(u.subjectId)} / ${u.name}。回想一下：現在掌握得如何？`;
+    document.querySelectorAll('.review-choice').forEach(b=>b.classList.remove('selected'));
+    $('submitReview').disabled=true;$('modalBackdrop').classList.add('show');
+  }
+  function closeModal(){$('modalBackdrop').classList.remove('show');activeReviewId=null;selectedRating=null;}
+  function submitReview(){
+    const u=state.units.find(x=>x.id===activeReviewId);if(!u||!selectedRating)return;
+    const before=u.stage;
+    if(selectedRating==='forgot'){
+      // 忘記後不重設原本階段，而是每天重試，避免遺失原本的複習進度。
+      u.forgotRetry=true;
+      u.nextDate=addDays(todayISO(),1);
+    } else if(selectedRating==='easy'){
+      u.stage=Math.min(intervals.length-1,Math.max(0,u.stage)+1);
+      u.forgotRetry=false;
+      u.nextDate=addDays(todayISO(),intervals[u.stage]);
+    } else {
+      // 有點吃力：維持原階段；若正在忘記後重試，從這次起回到原階段間隔。
+      u.stage=Math.max(0,u.stage);
+      u.forgotRetry=false;
+      u.nextDate=addDays(todayISO(),intervals[u.stage]);
+    }
+    u.status='active';u.reviewCount=(u.reviewCount||0)+1;u.lastDate=todayISO();u.lastRating=selectedRating;
+    state.history.push({id:uid(),unitId:u.id,unitName:u.name,subjectId:u.subjectId,subjectName:subjectName(u.subjectId),date:todayISO(),completedAt:new Date().toISOString(),rating:selectedRating,stageBefore:before,stageAfter:u.stage,nextDate:u.nextDate});
+    save();closeModal();render();toast(`複習已記錄！${u.completed?'此單元已達兩週完結。':`下次複習：${dateLabel(u.nextDate)}`}`);
+  }
+  let editTarget = null;
+  function openEditModal(type,id){
+    const item = type==='unit' ? state.units.find(x=>x.id===id) : state.subjects.find(x=>x.id===id);
+    if(!item)return;
+    editTarget={type,id};
+    $('editModalTitle').textContent=type==='unit'?'編輯學習單元':'重新命名科目';
+    $('editModalSubtitle').textContent=type==='unit'?'修改這個學習單元的名稱。':'修改科目名稱；相關活動紀錄也會同步更新。';
+    $('editNameInput').value=item.name;
+    $('editNameInput').maxLength=type==='unit'?100:60;
+    $('editBackdrop').classList.add('show');
+    setTimeout(()=>$('editNameInput').focus(),50);
+  }
+  function closeEditModal(){ $('editBackdrop').classList.remove('show'); editTarget=null; }
+  function saveEdit(){
+    if(!editTarget)return;
+    const name=$('editNameInput').value.trim();
+    if(!name){toast('名稱不能空白。');return;}
+    const {type,id}=editTarget;
+    if(type==='unit'){
+      const u=state.units.find(x=>x.id===id);if(!u)return;
+      u.name=name;
+      state.history.forEach(h=>{if(h.unitId===id)h.unitName=name;});
+      save();closeEditModal();render();toast('學習單元名稱已更新。');
+    } else {
+      const sub=state.subjects.find(x=>x.id===id);if(!sub)return;
+      if(state.subjects.some(x=>x.id!==id&&x.name.toLowerCase()===name.toLowerCase())){toast('這個科目名稱已經存在。');return;}
+      sub.name=name;state.history.forEach(h=>{if(h.subjectId===id)h.subjectName=name;});
+      save();closeEditModal();render();toast('科目名稱已更新。');
+    }
+  }
+  function editUnit(id){openEditModal('unit',id);}
+  let pendingConfirmAction = null;
+  function askConfirm(message, action, title='請確認操作'){
+    $('confirmTitle').textContent=title;
+    $('confirmMessage').textContent=message;
+    pendingConfirmAction=action;
+    $('confirmBackdrop').classList.add('show');
+  }
+  function closeConfirm(){ $('confirmBackdrop').classList.remove('show'); pendingConfirmAction=null; }
+  function deleteUnit(id){
+    const u=state.units.find(x=>x.id===id);if(!u)return;
+    askConfirm(`確定刪除「${u.name}」？相關複習歷史也會刪除。`,()=>{
+      state.units=state.units.filter(x=>x.id!==id);state.history=state.history.filter(h=>h.unitId!==id);save();render();toast('學習單元已刪除。');
+    },'刪除學習單元');
+  }
+  function renameSubject(id){openEditModal('subject',id);}
+  function deleteSubject(id){
+    const s=state.subjects.find(x=>x.id===id);if(!s)return;
+    const n=state.units.filter(u=>u.subjectId===id).length;
+    askConfirm(`確定刪除科目「${s.name}」及其 ${n} 個學習單元與相關複習紀錄？此操作無法復原。`,()=>{
+      const ids=new Set(state.units.filter(u=>u.subjectId===id).map(u=>u.id));
+      state.subjects=state.subjects.filter(x=>x.id!==id);state.units=state.units.filter(u=>u.subjectId!==id);state.history=state.history.filter(h=>!ids.has(h.unitId));expandedSubjects.delete(id);save();render();toast('科目及相關資料已刪除。');
+    },'刪除科目');
+  }
+  $('addSubjectOpen').addEventListener('click',openSubjectModal);
+  $('cancelSubject').addEventListener('click',closeSubjectModal);
+  $('cancelEdit').addEventListener('click',closeEditModal);
+  $('editBackdrop').addEventListener('click',e=>{if(e.target===$('editBackdrop'))closeEditModal();});
+  $('editForm').addEventListener('submit',e=>{e.preventDefault();saveEdit();});
+
+  $('subjectBackdrop').addEventListener('click',e=>{if(e.target===$('subjectBackdrop'))closeSubjectModal();});
+  $('subjectForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    if(addSubject($('subjectNameInput').value)) closeSubjectModal();
+  });
+  $('unitForm').addEventListener('submit',e=>{
+    e.preventDefault();const name=$('unitName').value.trim(),subjectId=$('unitSubject').value,status=$('unitStatus').value;
+    if(!name||!subjectId){toast('請先填寫單元名稱並選擇科目。');return;}
+    addUnit(name,subjectId,status);$('unitName').value='';
+  });
+  $('reviewFilter').addEventListener('change',renderReviews);$('statusFilter').addEventListener('change',renderReviews);
+  $('reviewList').addEventListener('click',e=>{
+    const b=e.target.closest('button[data-action]');if(!b)return;
+    const {action,id}=b.dataset;
+    if(action==='toggle-review-subject'){const key='review:'+id;if(expandedSubjects.has(key))expandedSubjects.delete(key);else expandedSubjects.add(key);renderReviews();return;}
+    if(action==='review')openReview(id);
+    if(action==='start')startSchedule(id);
+    if(action==='edit')editUnit(id);
+    if(action==='delete-unit')deleteUnit(id);
+  });
+  $('historyList').addEventListener('click',e=>{
+    const b=e.target.closest('button[data-action]');if(!b)return;
+    const {action,id}=b.dataset;
+    if(action==='toggle-activity-subject'){
+      const key='activity:'+id;
+      if(expandedSubjects.has(key))expandedSubjects.delete(key);else expandedSubjects.add(key);
+      renderHistory();
+    }
+  });
+  $('keepCompletedUnit').addEventListener('click',keepCompletedUnit);
+  $('deleteCompletedUnit').addEventListener('click',requestDeleteCompletedUnit);
+  $('completionBackdrop').addEventListener('click',e=>{if(e.target===$('completionBackdrop'))keepCompletedUnit();});
+  $('subjectList').addEventListener('click',e=>{
+    const b=e.target.closest('button[data-action]');if(!b)return;const {action,id}=b.dataset;
+    if(action==='delete-unit'){deleteUnit(id);return;}
+    if(action==='toggle-subject'){if(expandedSubjects.has(id))expandedSubjects.delete(id);else expandedSubjects.add(id);renderSubjects();return;}
+    if(action==='rename-subject')renameSubject(id);
+    if(action==='delete-subject')deleteSubject(id);
+    if(action==='add-unit'){$('unitSubject').value=id;$('unitName').focus();window.scrollTo({top:$('unitForm').getBoundingClientRect().top+window.scrollY-30,behavior:'smooth'});}
+  });
+  document.querySelectorAll('.review-choice').forEach(b=>b.addEventListener('click',()=>{
+    selectedRating=b.dataset.rating;document.querySelectorAll('.review-choice').forEach(x=>x.classList.toggle('selected',x===b));$('submitReview').disabled=false;
+  }));
+  $('cancelReview').addEventListener('click',closeModal);$('submitReview').addEventListener('click',submitReview);
+  $('cancelConfirm').addEventListener('click',()=>{closeConfirm();showNextCompletionNotice();});
+  $('acceptConfirm').addEventListener('click',()=>{const action=pendingConfirmAction;closeConfirm();if(action)action();});
+  $('confirmBackdrop').addEventListener('click',e=>{if(e.target===$('confirmBackdrop'))closeConfirm();});
+  $('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+  $('clearBtn').addEventListener('click',()=>{
+    askConfirm('確定清除所有科目、學習單元與複習歷史？此操作無法復原。建議先匯出備份。',()=>{
+      state={subjects:[],units:[],history:[]};expandedSubjects.clear();save();render();toast('資料已清除。');
+    },'清除全部資料');
+  });
+  $('exportBtn').addEventListener('click',()=>{
+    const blob=new Blob([JSON.stringify({app:'Re:Mind',version:2,exportedAt:new Date().toISOString(),...state},null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`remind-backup-${todayISO()}.json`;a.click();URL.revokeObjectURL(url);toast('已匯出備份檔。');
+  });
+  $('importBtn').addEventListener('click',()=>$('importFile').click());
+  $('importFile').addEventListener('change',async e=>{
+    const file=e.target.files[0];if(!file)return;
+    try{
+      const data=JSON.parse(await file.text());
+      if(!Array.isArray(data.subjects)||!Array.isArray(data.units)||!Array.isArray(data.history))throw new Error('format');
+      if(!confirm('匯入備份會取代目前所有資料，確定繼續？'))return;
+      state={subjects:data.subjects,units:data.units,history:data.history};save();render();toast('備份匯入成功。');
+    }catch(err){toast('匯入失敗：檔案格式不正確。');}
+    finally{e.target.value='';}
+  });
+  render();
+})();
+</script>
+</body>
+</html>
